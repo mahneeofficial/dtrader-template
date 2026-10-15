@@ -15,8 +15,8 @@
         "help_centre_url": "https://apex-trade-wine.vercel.app"
     },
     "signup_url": {
-        "production": "https://apex-trade-wine.vercel.app/signup",
-        "staging": "https://localhost:8443/signup"
+        "production": "https://oauth.deriv.com/signup",
+        "staging": "https://oauth.deriv.com/signup"
     },
     "deposit_url": {
         "staging": "https://localhost:8443/transfer",
