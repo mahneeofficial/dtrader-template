@@ -1,6 +1,4 @@
-import React from 'react';
 import { observer } from 'mobx-react-lite';
-import PropTypes from 'prop-types';
 
 import { Button } from '@deriv/components';
 import { redirectToLogin } from '@deriv/shared';
@@ -30,9 +28,5 @@ const LoginButton = observer(({ className }: LoginButtonV2Props) => {
         />
     );
 });
-
-LoginButton.propTypes = {
-    className: PropTypes.string,
-};
 
 export { LoginButton };

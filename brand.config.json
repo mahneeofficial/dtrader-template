@@ -2,32 +2,32 @@
     "brand_name": "Apex",
     "brand_logo": "brand/platform-logo.svg",
     "brand_logo_dark": "brand/platform-logo.svg",
-    "brand_domain": "app-trading-kh4k-14-team3.vercel.app",
+    "brand_domain": "apex-trade-wine.vercel.app",
     "brand_hostname": {
         "staging": "localhost:8443",
-        "production": "app-trading-kh4k-14-team3.vercel.app"
+        "production": "apex-trade-wine.vercel.app"
     },
     "platform": {
         "name": "Apex",
         "description": "Trade derivatives with confidence.",
         "logo": "brand/platform-logo.svg",
-        "home_url": "https://app-trading-kh4k-14-team3.vercel.app",
-        "help_centre_url": "https://app-trading-kh4k-14-team3.vercel.app"
+        "home_url": "https://apex-trade-wine.vercel.app",
+        "help_centre_url": "https://apex-trade-wine.vercel.app"
     },
     "signup_url": {
-        "production": "https://app-trading-kh4k-14-team3.vercel.app/signup",
+        "production": "https://apex-trade-wine.vercel.app/signup",
         "staging": "https://localhost:8443/signup"
     },
     "deposit_url": {
         "staging": "https://localhost:8443/transfer",
-        "production": "https://app-trading-kh4k-14-team3.vercel.app/transfer"
+        "production": "https://apex-trade-wine.vercel.app/transfer"
     },
     "auth": {
         "staging": "https://auth.deriv.com",
         "production": "https://auth.deriv.com",
         "oauth_scopes": ["trade", "account_manage"],
         "oauth_redirect_uri_staging": "https://localhost:8443",
-        "oauth_redirect_uri_production": "https://app-trading-kh4k-14-team3.vercel.app",
+        "oauth_redirect_uri_production": "https://apex-trade-wine.vercel.app",
         "oauth_app_id": "34FYcqH4Gzy02eVh7WqJpd"
     },
     "derivws": {
@@ -67,4 +67,4 @@
         "dark_mode": true,
         "language_switcher": false
     }
-}   
+}

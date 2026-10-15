@@ -17,7 +17,7 @@ import {
     StandaloneSunBrightRegularIcon,
     StandaloneUserPlusRegularIcon,
 } from '@deriv/quill-icons';
-import { getHelpCentreUrl, getSignupUrl, isFeatureEnabled, routes } from '@deriv/shared';
+import { getHelpCentreUrl, getSignupUrl, isFeatureEnabled, redirectToSignUp, routes } from '@deriv/shared';
 import { observer, useStore } from '@deriv/stores';
 import { useTranslations } from '@deriv-com/translations';
 import { useDevice } from '@deriv-com/ui';
@@ -172,10 +172,7 @@ const MenuPage = observer(() => {
 
                     {/* Sign up — only shown to logged-out users when signup_url is configured */}
                     {!is_logged_in && !isBridgeAvailable && getSignupUrl() && (
-                        <div
-                            className='menu-page__item'
-                            onClick={() => window.open(getSignupUrl(), '_blank', 'noopener,noreferrer')}
-                        >
+                        <div className='menu-page__item' onClick={() => redirectToSignUp()}>
                             <MenuLink
                                 icon={<StandaloneUserPlusRegularIcon iconSize='sm' />}
                                 text={localize('Sign up')}

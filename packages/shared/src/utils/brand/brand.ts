@@ -2,7 +2,14 @@
 import config_data from '../../../../../brand.config.json';
 import { appendLangParam } from '../url/helpers';
 
+const isLocalhost = (hostname: string): boolean => {
+    return hostname === 'localhost' || hostname === '127.0.0.1' || hostname.startsWith('localhost:');
+};
+
 export const getBrandDomain = (): string => {
+    if (typeof window !== 'undefined' && window.location.hostname && !isLocalhost(window.location.hostname)) {
+        return window.location.hostname;
+    }
     return (config_data as Record<string, unknown> & typeof config_data).brand_domain as string;
 };
 
@@ -16,21 +23,26 @@ export const getBrandLogo = () => {
 
 /**
  * Runtime production check based on window.location.hostname.
- * Matches against the configured brand_hostname.production value.
+ * Treats any non-localhost deployment (e.g. Vercel, production domains) as production.
  */
 export const isProduction = (): boolean => {
     if (typeof window === 'undefined') return false;
     const hostname = window.location.hostname;
-    const production_hostname = config_data.brand_hostname.production;
-    return hostname === production_hostname;
+    return !isLocalhost(hostname);
 };
 
 export const getBrandHostname = () => {
+    if (typeof window !== 'undefined' && !isLocalhost(window.location.hostname)) {
+        return window.location.hostname;
+    }
     const hostname = isProduction() ? config_data.brand_hostname.production : config_data.brand_hostname.staging;
     return substituteDerivDomain(hostname);
 };
 
 export const getBrandUrl = () => {
+    if (typeof window !== 'undefined' && !isLocalhost(window.location.hostname)) {
+        return window.location.origin;
+    }
     const hostname = isProduction() ? config_data.brand_hostname.production : config_data.brand_hostname.staging;
     return `https://${substituteDerivDomain(hostname)}`;
 };
@@ -175,6 +187,9 @@ export const getOAuthAppId = (): string => {
 };
 
 export const getOAuthRedirectUri = (): string => {
+    if (typeof window !== 'undefined' && !isLocalhost(window.location.hostname)) {
+        return window.location.origin;
+    }
     const auth = config_data.auth as Record<string, unknown>;
     return isProduction()
         ? ((auth.oauth_redirect_uri_production as string) ?? '')
@@ -255,6 +270,9 @@ export const getHelpCentreUrl = (): string => {
 };
 
 export const getDepositUrl = (): string => {
+    if (typeof window !== 'undefined' && !isLocalhost(window.location.hostname)) {
+        return `${window.location.origin}/transfer`;
+    }
     const deposit = (config_data as Record<string, unknown>).deposit_url as
         | { staging: string; production: string }
         | undefined;
@@ -263,6 +281,9 @@ export const getDepositUrl = (): string => {
 };
 
 export const getSignupUrl = (): string => {
+    if (typeof window !== 'undefined' && !isLocalhost(window.location.hostname)) {
+        return `${window.location.origin}/signup`;
+    }
     const signup = (config_data as Record<string, unknown>).signup_url as
         | { staging: string; production: string }
         | undefined;

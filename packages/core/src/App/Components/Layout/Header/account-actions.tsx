@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 
 import { useDerivativesAccount, useMobileBridge } from '@deriv/api';
 import { Button, Skeleton, Text } from '@deriv/components';
-import { getBrandUrl, getSignupUrl } from '@deriv/shared';
+import { getBrandUrl, redirectToSignUp } from '@deriv/shared';
 import { useStore } from '@deriv/stores';
 import { useTranslations } from '@deriv-com/translations';
 
@@ -27,7 +27,7 @@ const AccountActionsComponent = observer(() => {
 
     // Fetch derivatives accounts to determine button type (single source of truth)
     const { data, isLoading, error, refetch } = useDerivativesAccount(loginid, is_logged_in);
-    const accounts = data?.data || [];
+    const accounts = React.useMemo(() => data?.data || [], [data?.data]);
 
     // Handle account switch start
     const handleAccountSwitchStart = React.useCallback(() => {
@@ -87,7 +87,6 @@ const AccountActionsComponent = observer(() => {
     );
 
     if (!is_logged_in) {
-        const signup_url = getSignupUrl();
         return (
             <div
                 id='dt_core_header_acc-info-container'
@@ -100,7 +99,7 @@ const AccountActionsComponent = observer(() => {
                     className='acc-info__button'
                     has_effect
                     text={localize('Sign up')}
-                    onClick={() => window.open(signup_url, '_blank', 'noopener,noreferrer')}
+                    onClick={() => redirectToSignUp()}
                     secondary
                 />
                 <LoginButton className='acc-info__button' />
