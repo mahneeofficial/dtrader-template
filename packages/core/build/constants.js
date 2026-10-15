@@ -66,7 +66,12 @@ const ALIASES = {
 
 const rules = (is_test_env = false) => [
     {
-        // https://github.com/webpack/webpack/issues/11467
+        test: /\.(js|jsx)$/,
+        include: /_common/,
+        type: 'javascript/auto',
+        use: [],
+    },
+    {
         test: /\.m?js/,
         include: /node_modules/,
         resolve: {
@@ -75,7 +80,7 @@ const rules = (is_test_env = false) => [
     },
     {
         test: /\.(js|jsx|ts|tsx)$/,
-        exclude: is_test_env ? /node_modules/ : /node_modules|__tests__/,
+        exclude: is_test_env ? /node_modules/ : /node_modules|__tests__|_common/,
         include: is_test_env ? /__tests__|src/ : /src/,
         use: js_loaders,
     },
@@ -126,8 +131,8 @@ const plugins = ({ base, is_test_env }) => {
     return [
         new Dotenv({
             path: path.resolve(__dirname, '../../../.env'),
-            systemvars: true, // also read from actual environment (CI secrets, shell exports)
-            silent: true, // don't error if .env file is missing (CI won't have one)
+            systemvars: true,
+            silent: true,
         }),
         new DefinePlugin({
             'process.env.REF_NAME': JSON.stringify(process.env.REF_NAME),
